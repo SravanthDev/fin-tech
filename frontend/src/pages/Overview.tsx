@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { CashFlowChart } from "@/components/dashboard/CashFlowChart"
 import { HealthScoreCard } from "@/components/dashboard/HealthScoreCard"
+import { MoneyAccounts } from "@/components/dashboard/MoneyAccounts"
 import { RecentTransactions } from "@/components/dashboard/RecentTransactions"
 import { SpendingBreakdown } from "@/components/dashboard/SpendingBreakdown"
 import { SummaryCards } from "@/components/dashboard/SummaryCards"
@@ -28,6 +29,16 @@ export default function Overview() {
           <Skeleton className="h-40 w-full rounded-2xl" />
         ) : (
           <HealthScoreCard summary={summary} />
+        )}
+
+        {isLoading || !summary ? (
+          <div className="flex flex-col gap-4 sm:flex-row">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Skeleton key={i} className="h-32 flex-1 rounded-xl" />
+            ))}
+          </div>
+        ) : (
+          <MoneyAccounts summary={summary} />
         )}
 
         {isLoading || !summary ? (
